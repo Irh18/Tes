@@ -709,6 +709,20 @@ function closeModal() {
     document.getElementById('invoiceModal').style.display = 'none';
 }
 
+fetch('data.xml')
+    .then(response => response.text())
+    .then(data => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data, 'text/xml');
+        const items = xmlDoc.getElementsByTagName('item');
+        
+        for (let item of items) {
+            addNewItem(item.getElementsByTagName('name')[0].textContent, 
+                        item.getElementsByTagName('qty')[0].textContent, 
+                        item.getElementsByTagName('price')[0].textContent);
+        }
+    });
+        
 function addNewItem() {
     const tableBody = document.querySelector('#invoice-table tbody');
     const newRow = document.createElement('tr');
