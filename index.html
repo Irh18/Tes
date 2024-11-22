@@ -25,17 +25,25 @@
         message: message
       };
 
-      fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-      .then(response => response.text())
-      .then(data => alert('Data berhasil dikirim: ' + data))
-      .catch(error => alert('Terjadi kesalahan: ' + error));
-    });
+fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
+  method: 'POST',
+  mode: 'no-cors', // Menghindari CORS
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    email: 'john@example.com',
+    message: 'Hello!'
+  })
+})
+.then(response => {
+  console.log('Data berhasil dikirim!');
+})
+.catch(error => {
+  console.error('Terjadi kesalahan:', error);
+});
+
   </script>
 </body>
 </html>
