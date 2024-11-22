@@ -497,27 +497,24 @@ function filterSalesByDate(selectedDates, dateStr) {
         });
     }
 
-  function sendToSpreadsheet(date, totalAmount) {
-    fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', { // Ganti dengan URL Web App Anda
+function sendToSpreadsheet(date, totalAmount) {
+    fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
         method: 'POST',
-        mode: 'cors', // Mengizinkan CORS
+        mode: 'no-cors',  // Mode no-cors untuk opaque response
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ date: date, totalAmount: totalAmount }),
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            Swal.fire('Sukses!', 'Data berhasil dikirim ke spreadsheet.', 'success');
-        } else {
-            Swal.fire('Error!', 'Gagal mengirim data: ' + data.message, 'error');
-        }
+    .then(() => {
+        // Karena no-cors mode menghasilkan opaque response, kita tidak bisa memeriksa responsnya
+        Swal.fire('Sukses!', 'Data berhasil dikirim ke spreadsheet.', 'success');
     })
     .catch(error => {
         Swal.fire('Error!', 'Terjadi kesalahan: ' + error.message, 'error');
     });
 }
+
 </script>
 
 </body>
