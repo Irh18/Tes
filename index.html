@@ -15,35 +15,35 @@
     document.getElementById('contactForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
+      // Ambil nilai dari input form
       var name = document.getElementById('name').value;
       var email = document.getElementById('email').value;
       var message = document.getElementById('message').value;
 
+      // Buat objek data yang akan dikirim
       var formData = {
         name: name,
         email: email,
         message: message
       };
 
-fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
-  method: 'POST',
-  mode: 'no-cors', // Menghindari CORS
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    name: 'John Doe',
-    email: 'john@example.com',
-    message: 'Hello!'
-  })
-})
-.then(response => {
-  console.log('Data berhasil dikirim!');
-})
-.catch(error => {
-  console.error('Terjadi kesalahan:', error);
-});
-
+      // Kirim data menggunakan fetch API
+      fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
+        method: 'POST',
+        mode: 'no-cors', // Hindari CORS
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData) // Kirim data sebagai JSON
+      })
+      .then(() => {
+        alert('Data berhasil dikirim!');
+      })
+      .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+        alert('Data gagal dikirim, coba lagi.');
+      });
+    });
   </script>
 </body>
 </html>
