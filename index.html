@@ -1,49 +1,524 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Bakso</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        header {
+            background-color: #800000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            padding: 20px;
+        }
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+.menu-item button {
+    width: 100%;
+    height: 50px;
+    background-color: #800000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input {
+            padding: 12px;
+            width: 80%;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .cart {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+        .cart h2 {
+            text-align: center;
+            color: #800000;
+            font-size: 2em;
+        }
+        .table-container {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 1em;
+        }
+        .btn-detail {
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+        .btn-delete {
+            background-color: #800000;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+        .btn-detail:hover, .btn-delete:hover {
+            background-color: #e67e22;
+        }
+        .btn-checkout {
+            background-color: #800000;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .btn-checkout:hover {
+            background-color: #7f1e1e;
+        }
+        .btn-action {
+            margin-left: 5px;
+        }
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .cart li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .cart li span {
+            text-align: left;
+        }
+        .cart li button {
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            background: #800000;
+            margin-left: 5px;
+        }
+.swal2-container, .swal2-title {
+
+    max-width: 100%;
+    margin: 0;
+    padding: .8em 1em 0;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+}
+#swal2-html-container {
+    z-index: 1;
+    justify-content: center;
+    margin: 0;
+    padding: 1em 1.6em .3em;
+    overflow: auto;
+    color: inherit;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: normal;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.filter-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.filter-container label {
+    font-size: 1em;
+    color: #333;
+}
+.filter-container input {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+.total{
+	font-size:20px;
+	color:#800000;
+}
+
+    </style>
+</head>
 <body>
-  <h2>Formulir Kontak</h2>
-  <form id="contactForm">
-    <label for="name">Nama:</label>
-    <input type="text" id="name" name="name" required><br><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
-    <label for="message">Pesan:</label>
-    <textarea id="message" name="message" required></textarea><br><br>
-    <button type="submit">Kirim</button>
-  </form>
 
-  <script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+<header>
+    <h1>Warung Bakso</h1>
+</header>
 
-      // Ambil nilai dari input form
-      var name = document.getElementById('name').value;
-      var email = document.getElementById('email').value;
-      var message = document.getElementById('message').value;
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="search-item" placeholder="Cari item..." onkeyup="searchMenu()">
+    </div>
 
-      // Buat objek data yang akan dikirim
-      var formData = {
-        name: name,
-        email: email,
-        message: message
-      };
+    <div class="menu-items" id="menu-items">
+        <div class="menu-item" data-name="Bakso Ori">
+            <button onclick="addToCart('Bakso Ori', 15000)"><strong>Bakso Ori<br>15.000</strong></button>
+        </div>
+        <div class="menu-item" data-name="Pangsit Ori">
+            <button onclick="addToCart('Pangsit Ori', 15000)"><strong>Pangsit Ori<br>15.000</strong></button>
+        </div>
+        <div class="menu-item" data-name="Buras">
+            <button onclick="addToCart('Buras', 7000)"><strong>Buras<br>5.000</strong></button>
+        </div>
+        <div class="menu-item" data-name="Indomie">
+            <button onclick="addToCart('Indomie', 8000)"><strong>Indomie<br>4.000</strong></button>
+        </div>
+        <div class="menu-item" data-name="Kacang">
+            <button onclick="addToCart('Kacang', 4000)"><strong>Kacang<br>1.000</strong></button>
+        </div>
+        <div class="menu-item" data-name="Ice Cream">
+            <button onclick="addToCart('Ice Cream', 12000)"><strong>Ice Cream<br>3.000</strong></button>
+        </div>
+    </div>
 
-      // Kirim data menggunakan fetch API
-      fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
-        method: 'POST',
-        mode: 'no-cors', // Hindari CORS
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData) // Kirim data sebagai JSON
-      })
-      .then(() => {
-        alert('Data berhasil dikirim!');
-      })
-      .catch(error => {
-        console.error('Terjadi kesalahan:', error);
-        alert('Data gagal dikirim, coba lagi.');
-      });
+    <div class="cart">
+        <ul id="cart-list"></ul>
+        <p><strong class="total">Total Harga: Rp <span id="total-price">0</span></strong></p>
+        <button class="btn-checkout" onclick="completeTransaction()">Lanjutkan Pembayaran</button>
+    </div>
+
+    <div class="table-container">
+        <h2>Hasil Penjualan</h2>
+            <div class="filter-container">
+        <input type="text" id="filter-date">
+    </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal & Waktu</th>
+                    <th>Total Pembelian</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="sales-list"></tbody>
+        </table>
+        <p><strong>Total Jumlah Keseluruhan: Rp <span id="total-sales">0</span></strong></p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#filter-date", {
+        dateFormat: "d/m/Y",
+        defaultDate: null,
+        onChange: filterSalesByDate,
     });
-  </script>
+});
+
+
+
+    let cart = [];
+    let sales = [];
+    let totalSales = 0;
+
+    // Fungsi untuk memformat nominal dengan pemisah ribuan
+    function formatCurrency(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+        // Fungsi untuk memformat tanggal
+    function formatDate(date) {
+        const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+        return new Date(date).toLocaleDateString("id-ID", options);
+    }
+
+    // Fungsi untuk menambah item ke keranjang
+    function addToCart(item, price) {
+        const existingItem = cart.find(cartItem => cartItem.name === item);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name: item, price: price, quantity: 1 });
+        }
+        updateCart();
+    }
+
+    // Fungsi untuk mengupdate tampilan keranjang belanja
+    function updateCart() {
+        const cartList = document.getElementById('cart-list');
+        const totalPriceElement = document.getElementById('total-price');
+        cartList.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${item.name} x${item.quantity} - Rp ${formatCurrency(item.price * item.quantity)} 
+            <button onclick="removeItemFromCart('${item.name}')">Hapus</button>`;
+            cartList.appendChild(listItem);
+            total += item.price * item.quantity;
+        });
+
+        totalPriceElement.innerText = formatCurrency(total);
+    }
+
+    // Fungsi untuk menghapus item dari keranjang
+    function removeItemFromCart(itemName) {
+        cart = cart.filter(item => item.name !== itemName);
+        updateCart();
+    }
+
+// Panggil fungsi ini setiap kali transaksi disimpan
+function completeTransaction() {
+    if (cart.length === 0) {
+        Swal.fire('Keranjang kosong!', 'Tambah item ke keranjang sebelum checkout.', 'error');
+        return;
+    }
+
+    const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const date = formatDate(new Date()); // Format sesuai filter
+
+    // Kirim data ke spreadsheet
+    sendToSpreadsheet(date, totalAmount);
+
+    // Simpan transaksi ke sistem
+    const transaction = {
+        date: date,
+        totalAmount: totalAmount,
+        details: [...cart]
+    };
+
+    sales.unshift(transaction);
+    totalSales += totalAmount;
+    updateSales();
+
+    Swal.fire('Transaksi Sukses!', `Total pembayaran: Rp ${formatCurrency(totalAmount)}`, 'success');
+    cart = [];
+    updateCart();
+}
+
+
+
+    // Fungsi untuk memperbarui daftar penjualan
+    function updateSales() {
+        const salesList = document.getElementById('sales-list');
+        const totalSalesElement = document.getElementById('total-sales');
+        salesList.innerHTML = '';
+        sales.forEach((sale, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sale.date}</td>
+                <td>Rp ${formatCurrency(sale.totalAmount)}</td>
+                <td>
+                    <button class="btn-detail" onclick="viewSaleDetails(${index})">Detail</button>
+                    <button class="btn-delete" onclick="deleteSale(${index})">Hapus</button>
+                </td>
+            `;
+            salesList.appendChild(row);
+        });
+        totalSalesElement.innerText = formatCurrency(totalSales);
+    }
+
+
+
+// Fungsi untuk melihat detail transaksi
+function viewSaleDetails(index) {
+    const sale = sales[index];  // Ambil data transaksi berdasarkan index
+    let detailsText = 'Detail Transaksi:\n';
+    let totalPrice = 0;
+
+    // Tampilkan detail setiap item dalam transaksi
+    sale.details.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        totalPrice += itemTotal;
+        detailsText += `${item.name} - Rp ${formatCurrency(item.price)} x ${item.quantity} = Rp ${formatCurrency(itemTotal)}\n`;
+    });
+    
+    // Tampilkan total transaksi
+    detailsText += `\n<strong>Total Harga: Rp ${formatCurrency(totalPrice)}</strong>`;
+    
+    // Gunakan SweetAlert untuk menampilkan detail
+    Swal.fire({
+        title: `Detail Transaksi - ${sale.date}`,
+        html: detailsText.replace(/\n/g, '<br>'),
+        icon: 'info',
+    });
+}
+
+
+
+// Fungsi untuk menghapus penjualan dengan konfirmasi PIN
+function deleteSale(index) {
+    Swal.fire({
+        title: 'Konfirmasi Penghapusan',
+        html: `
+            <p>Masukkan PIN untuk menghapus transaksi.</p>
+            <input type="password" id="pin-input" class="swal2-input" placeholder="PIN" maxlength="4">
+        `,
+        preConfirm: () => {
+            const pin = Swal.getPopup().querySelector('#pin-input').value;
+            if (!pin) {
+                Swal.showValidationMessage('PIN tidak boleh kosong');
+                return false;
+            }
+            return pin;
+        },
+        inputAttributes: {
+            maxlength: 4,
+            autocapitalize: 'off',
+            autocorrect: 'off',
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+    }).then(result => {
+        if (result.isConfirmed) {
+            if (result.value === '0000') { // PIN yang benar
+                const sale = sales[index];
+                totalSales -= sale.totalAmount;
+                sales.splice(index, 1);
+                updateSales();
+                Swal.fire('Sukses!', 'Transaksi berhasil dihapus.', 'success');
+            } else {
+                Swal.fire('Gagal!', 'PIN salah, transaksi tidak dihapus.', 'error');
+            }
+        }
+    });
+}
+
+function filterSalesByDate(selectedDates, dateStr) {
+    const filterDate = dateStr; // Tanggal yang dipilih dari Flatpickr
+    const salesList = document.getElementById('sales-list');
+    const totalSalesElement = document.getElementById('total-sales');
+    salesList.innerHTML = '';
+
+    // Jika tidak ada tanggal yang dipilih, tampilkan semua data
+    if (!filterDate) {
+        updateSales();
+        return;
+    }
+
+    // Filter transaksi berdasarkan tanggal
+    const filteredSales = sales.filter(sale => sale.date === filterDate);
+    
+    // Hitung total berdasarkan transaksi yang difilter
+    const filteredTotalSales = filteredSales.reduce((total, sale) => total + sale.totalAmount, 0);
+
+    // Perbarui tampilan tabel dengan transaksi yang difilter
+    filteredSales.forEach((sale, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${sale.date}</td>
+            <td>Rp ${formatCurrency(sale.totalAmount)}</td>
+            <td>
+                <button class="btn-detail" onclick="viewSaleDetails(${index})">Detail</button>
+                <button class="btn-delete" onclick="deleteSale(${index})">Hapus</button>
+            </td>
+        `;
+        salesList.appendChild(row);
+    });
+
+    // Tampilkan total keseluruhan yang difilter
+    totalSalesElement.innerText = formatCurrency(filteredTotalSales);
+}
+
+
+
+
+    // Fungsi untuk mencari item menu
+    function searchMenu() {
+        const searchTerm = document.getElementById('search-item').value.toLowerCase();
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            const itemName = item.dataset.name.toLowerCase();
+            if (itemName.includes(searchTerm)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+  function sendToSpreadsheet(date, totalAmount) {
+    fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', { // Ganti dengan URL Web App Anda
+        method: 'POST',
+        mode: 'cors', // Mengizinkan CORS
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ date: date, totalAmount: totalAmount }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            Swal.fire('Sukses!', 'Data berhasil dikirim ke spreadsheet.', 'success');
+        } else {
+            Swal.fire('Error!', 'Gagal mengirim data: ' + data.message, 'error');
+        }
+    })
+    .catch(error => {
+        Swal.fire('Error!', 'Terjadi kesalahan: ' + error.message, 'error');
+    });
+}
+</script>
+
 </body>
 </html>
