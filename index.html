@@ -520,29 +520,36 @@ function sendToSpreadsheet(date, totalAmount) {
 
         // Fungsi untuk mengambil data dari Google Apps Script dan menampilkan di tabel
         function loadData() {
-            fetch(scriptUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('data-table-body');
-                    tableBody.innerHTML = ''; // Bersihkan tabel sebelum menambah data
+            fetch(scriptUrl, {
+                method: 'GET', // Menggunakan metode GET untuk mengambil data
+                mode: 'cors', // Pastikan CORS diizinkan
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json()) // Mengonversi response menjadi JSON
+            .then(data => {
+                const tableBody = document.getElementById('data-table-body');
+                tableBody.innerHTML = ''; // Bersihkan tabel sebelum menambah data
 
-                    // Loop untuk menampilkan data ke dalam tabel
-                    data.forEach(row => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${row.date}</td>
-                            <td>${row.totalAmount}</td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-                })
-                .catch(error => {
-                    Swal.fire('Error!', 'Terjadi kesalahan saat mengambil data: ' + error.message, 'error');
+                // Loop untuk menampilkan data ke dalam tabel
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.date}</td>
+                        <td>${row.totalAmount}</td>
+                    `;
+                    tableBody.appendChild(tr);
                 });
+            })
+            .catch(error => {
+                Swal.fire('Error!', 'Terjadi kesalahan saat mengambil data: ' + error.message, 'error');
+            });
         }
 
         // Panggil fungsi loadData saat halaman dimuat
         window.onload = loadData;
+
 
 
 </script>
