@@ -515,6 +515,34 @@ function sendToSpreadsheet(date, totalAmount) {
     });
 }
 
+        // Ganti dengan URL Web App Anda
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec';
+
+        // Fungsi untuk mengambil data dari Google Apps Script dan menampilkan di tabel
+        function loadData() {
+            fetch(scriptUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data-table-body');
+                    tableBody.innerHTML = ''; // Bersihkan tabel sebelum menambah data
+
+                    // Loop untuk menampilkan data ke dalam tabel
+                    data.forEach(row => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${row.date}</td>
+                            <td>${row.totalAmount}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    Swal.fire('Error!', 'Terjadi kesalahan saat mengambil data: ' + error.message, 'error');
+                });
+        }
+
+        // Panggil fungsi loadData saat halaman dimuat
+        window.onload = loadData;
 
 
 </script>
