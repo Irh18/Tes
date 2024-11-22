@@ -500,20 +500,25 @@ function filterSalesByDate(selectedDates, dateStr) {
 function sendToSpreadsheet(date, totalAmount) {
     fetch('https://script.google.com/macros/s/AKfycbxpwp0PggeXbJ-2ZuA4s7XGwD2KfHO0yE9VTI9ZtnxHGROgQGG5D-nL6Xs4UjzNy6rH/exec', {
         method: 'POST',
-        mode: 'no-cors',  // Mode no-cors untuk opaque response
+        mode: 'cors',  // Mengizinkan CORS
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ date: date, totalAmount: totalAmount }),
+        body: JSON.stringify({ date: date, totalAmount: totalAmount }),  // Pastikan data dikirim dalam format JSON yang benar
     })
-    .then(() => {
-        // Karena no-cors mode menghasilkan opaque response, kita tidak bisa memeriksa responsnya
-        Swal.fire('Sukses!', 'Data berhasil dikirim ke spreadsheet.', 'success');
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            Swal.fire('Sukses!', 'Data berhasil dikirim ke spreadsheet.', 'success');
+        } else {
+            Swal.fire('Error!', 'Gagal mengirim data: ' + data.message, 'error');
+        }
     })
     .catch(error => {
         Swal.fire('Error!', 'Terjadi kesalahan: ' + error.message, 'error');
     });
 }
+
 
 </script>
 
